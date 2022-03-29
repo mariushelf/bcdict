@@ -1,4 +1,4 @@
-![tests](https://github.com/mariushelf/bcdict/actions/workflows/test.yml/badge.svg)
+![Tests](https://github.com/mariushelf/bcdict/actions/workflows/tests.yml/badge.svg)
 
 # Broadcast Dictionary
 
