@@ -130,27 +130,21 @@ def _integration_test():
     """Run a complete train/test/evaluate pipeline with `BCDict`s."""
     from pprint import pprint
 
-    def train(X: pd.DataFrame, y: pd.Series) -> LinearRegression:
-        """We use this function to train a model."""
-        model = LinearRegression()
-        model.fit(X, y)
-        return model
-
-    def get_random_data_for_grids(grids: Collection) -> dict[str, pd.DataFrame]:
+    def get_random_data(datasets: Collection) -> dict[str, pd.DataFrame]:
         """Just create some random data."""
         columns = list("ABCD") + ["target"]
         dfs = {}
-        for grid in grids:
-            dfs[grid] = pd.DataFrame(
+        for name in datasets:
+            dfs[name] = pd.DataFrame(
                 np.random.random((10, len(columns))), columns=columns
             )
         return dfs
 
-    grids = ["noord", "brabant", "limburg"]
+    datasets = ["noord", "brabant", "limburg"]
 
     # make dict with three dataframes, one for each grid:
-    train_dfs = BCDict(get_random_data_for_grids(grids))
-    test_dfs = BCDict(get_random_data_for_grids(grids))
+    train_dfs = BCDict(get_random_data(datasets))
+    test_dfs = BCDict(get_random_data(datasets))
 
     features = list("ABCD")
     target = "target"
@@ -166,6 +160,12 @@ def _integration_test():
     # creates models for all 3 grids at once:
     # we call the `train` function on each dataframe in X_train, and pass the
     # corresponding y_train series into the function.
+    def train(X: pd.DataFrame, y: pd.Series) -> LinearRegression:
+        """We use this function to train a model."""
+        model = LinearRegression()
+        model.fit(X, y)
+        return model
+
     models = X_train.pipe(train, y_train)
 
     # Apply each model to the correct grid.
@@ -182,7 +182,7 @@ def _integration_test():
     #  'limburg': -1.3066288799673251,
     #  'noord': -0.8467452520467658}
 
-    assert list(scores.keys()) == grids
+    assert list(scores.keys()) == datasets
     assert all((isinstance(v, float) for v in scores.values()))
 
     # Conclusion: no single for loop or dict comprehension used to train 3 models
