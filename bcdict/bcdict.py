@@ -187,6 +187,21 @@ class BCDict(dict, Generic[K, V]):
     def __rshift__(self, other: dict | Any) -> BCDict:
         return self.__generic_operator(other, operator.rshift)
 
+    def __lt__(self, other: dict | Any) -> BCDict:
+        return self.__generic_operator(other, operator.lt)
+
+    def __le__(self, other: dict | Any) -> BCDict:
+        return self.__generic_operator(other, operator.le)
+
+    def __gt__(self, other: dict | Any) -> BCDict:
+        return self.__generic_operator(other, operator.gt)
+
+    def __ge__(self, other: dict | Any) -> BCDict:
+        return self.__generic_operator(other, operator.ge)
+
+    # eq, ne not supported because they are defined in the `dict` class
+    # and we don't want to override them
+
     def __generic_operator(
         self, other: Any | dict, f: Callable[[Any, Any], Any]
     ) -> BCDict:

@@ -193,11 +193,20 @@ def _integration_test():
         ("d>>2", {"A": 1, "B": 1}),
         ("d<<2", {"A": 16, "B": 20}),
         ("d**2", {"A": 16, "B": 25}),
+        ("d<5", {"A": True, "B": False}),
+        ("d<=5", {"A": True, "B": True}),
+        ("d==5", False),  # implemented in `dict`, not overriden
+        ("d!=5", True),  # implemented in `dict`, not overriden
+        ("d>5", {"A": False, "B": False}),
+        ("d>=5", {"A": False, "B": True}),
     ],
 )
 def test_operators_simple(num_dict, expr, result):
     d = num_dict  # noqa:F841
-    assert eval(expr) == result, expr
+    if result in (True, False):
+        assert eval(expr) is result, expr
+    else:
+        assert eval(expr) == result, expr
 
 
 @pytest.mark.parametrize(
@@ -212,8 +221,17 @@ def test_operators_simple(num_dict, expr, result):
         ("d>>{'A': 1, 'B': 2}", {"A": 2, "B": 1}),
         ("d<<{'A': 1, 'B': 2}", {"A": 8, "B": 20}),
         ("d**{'A': 0, 'B': 2}", {"A": 1, "B": 25}),
+        ("d<{'A': 5, 'B': 5}", {"A": True, "B": False}),
+        ("d<={'A': 3, 'B': 5}", {"A": False, "B": True}),
+        ("d=={'A': 3, 'B': 5}", False),  # implemented in `dict`, not overriden
+        ("d!={'A': 3, 'B': 5}", True),  # implemented in `dict`, not overriden
+        ("d>{'A': 3, 'B': 5}", {"A": True, "B": False}),
+        ("d>={'A': 3, 'B': 5}", {"A": True, "B": True}),
     ],
 )
 def test_operators_broadcast(num_dict, expr, result):
     d = num_dict  # noqa:F841
-    assert eval(expr) == result, expr
+    if result in (True, False):
+        assert eval(expr) is result, expr
+    else:
+        assert eval(expr) == result, expr
