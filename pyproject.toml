@@ -21,12 +21,14 @@ classifiers = [
 python = "^3.7"
 
 [tool.poetry.dev-dependencies]
-pandas = "^1.0.0"
 pre-commit = "^2.8"
-pytest = "^7.1.0"
-scikit-learn = "^1.0.2"
+pytest = "^7.1.1"
 tox = "^3.20.1"
 twine = "^3.2.0"
+
+# required for integration tests:
+#pandas = "^1.0.0"
+#scikit-learn = "^1.0.2"
 
 [tool.isort]
 profile = "black"
