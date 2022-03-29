@@ -1,10 +1,19 @@
 from __future__ import annotations
 
+import sys
 from collections.abc import Collection
 
 import pytest
 
 from bcdict import BCDict
+
+try:
+    import numpy as np
+    import pandas as pd
+    from sklearn.linear_model import LinearRegression
+    from sklearn.metrics import r2_score
+except ImportError:
+    pass
 
 
 class SimpleObj:
@@ -113,14 +122,13 @@ def test_pipe_with_kwargs(d):
     assert res == {"A": "s1ZQ1", "B": "s2ZQ2"}, res
 
 
+@pytest.mark.skipif(
+    "pandas" not in sys.modules or "sklearn" not in sys.modules,
+    reason="requires extra-tests dependencies",
+)
 def _integration_test():
     """Run a complete train/test/evaluate pipeline with `BCDict`s."""
     from pprint import pprint
-
-    import numpy as np
-    import pandas as pd
-    from sklearn.linear_model import LinearRegression
-    from sklearn.metrics import r2_score
 
     def train(X: pd.DataFrame, y: pd.Series) -> LinearRegression:
         """We use this function to train a model."""
