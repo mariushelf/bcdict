@@ -6,6 +6,7 @@ on:
     types: [published]
 jobs:
   build-n-publish:
+    environment: production
     name: Build and publish Python distributions to PyPI
     runs-on: ubuntu-latest
     steps:
