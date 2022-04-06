@@ -1,5 +1,6 @@
 [![Tests](https://github.com/mariushelf/bcdict/actions/workflows/tests.yml/badge.svg)](https://github.com/mariushelf/bcdict/actions/workflows/tests.yml)
 [![codecov](https://codecov.io/gh/mariushelf/bcdict/branch/master/graph/badge.svg?token=5E2159JF60)](https://codecov.io/gh/mariushelf/bcdict)
+[![PyPI version](https://badge.fury.io/py/bcdict.svg)](https://pypi.org/project/bcdict/)
 
 # Broadcast Dictionary
 
