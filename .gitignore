@@ -164,6 +164,6 @@ data/**
 *.csv
 
 .~*
-poetry.lock
+#poetry.lock
 .isort.cfg
 

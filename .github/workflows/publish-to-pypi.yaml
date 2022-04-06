@@ -1,12 +1,12 @@
-name: Publish Python 🐍 distributions 📦 to PyPI and TestPyPI
+name: Publish Python distributions to PyPI
 
 on:
-  workflow_dispatch:  # TODO remove me
+  workflow_dispatch:
   release:
     types: [published]
 jobs:
   build-n-publish:
-    name: Build and publish Python 🐍 distributions 📦 to PyPI
+    name: Build and publish Python distributions to PyPI
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
@@ -14,14 +14,21 @@ jobs:
         uses: actions/setup-python@v3
         with:
           python-version: 3.9
-      - name: Build package
+      - name: Install poetry
         run: |
           curl -sSL https://install.python-poetry.org | python3 -
           export PATH=$PATH:$HOME/.local/bin
-          poetry build
-          echo "VERSION_STR=`poetry version`" >> $GITHUB_ENV
+      - name: Check tag and version match
+        run: |
+          if [ "v`poetry version -s`" != "${{ github.ref_name }}" ]; then
+            echo Tag $GITHUB_REF does not match package version `poetry version -s`.
+            exit 1
+          else
+            echo Package version and tag match.
+          fi
+      - name: Build package
+        run: poetry build
       - name: Publish package to Test PyPI
-        if: ${{ github.event_name == 'release' && $VERSION_STR == "bcdict " + $GITHUB_REF }}
         uses: pypa/gh-action-pypi-publish@release/v1
         with:
           user: __token__
