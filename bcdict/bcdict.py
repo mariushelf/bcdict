@@ -8,6 +8,20 @@ K = TypeVar("K")
 V = TypeVar("V")
 
 
+def to_list(*args: dict) -> dict:
+    """Convert a list of dicts to a dict of lists."""
+    if len(args) == 0:
+        raise ValueError("Input can't be empty.")
+    keys = [set(d.keys()) for d in args]
+    ref = keys[0]
+    for test in keys[1:]:
+        if ref != test:
+            raise ValueError("All input dictionaries must have the same keys.")
+
+    res = {key: list(d[key] for d in args) for key in keys[0]}
+    return res
+
+
 class BCDict(dict, Generic[K, V]):
     """Dictionary which allows to apply functions to all its elements, or
     retrieve attributes of all its elements.

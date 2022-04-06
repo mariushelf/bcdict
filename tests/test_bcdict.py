@@ -6,6 +6,7 @@ from collections.abc import Collection
 import pytest
 
 from bcdict import BCDict
+from bcdict.bcdict import to_list
 
 try:
     import numpy as np
@@ -243,3 +244,28 @@ def test_operators_broadcast(num_dict, expr, result):
         assert eval(expr) is result, expr
     else:
         assert eval(expr) == result, expr
+
+
+def test_to_list():
+    d1 = BCDict({"a": 1, "b": 2})
+    d2 = BCDict({"a": 3, "b": 4})
+
+    res = to_list(d1, d2)
+    assert res == {"a": [1, 3], "b": [2, 4]}
+
+
+@pytest.mark.parametrize(
+    "d1, d2",
+    [
+        (BCDict({"a": 1, "b": 2}), BCDict({"a": 3})),
+        (BCDict({"a": 1}), BCDict({"a": 3, "b": 4})),
+    ],
+)
+def test_to_list_raises_on_different_keys(d1, d2):
+    with pytest.raises(ValueError):
+        to_list(d1, d2)
+
+
+def test_to_list_raises_on_empty_input():
+    with pytest.raises(ValueError):
+        to_list()
