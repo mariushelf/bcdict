@@ -4,7 +4,7 @@
 # Broadcast Dictionary
 
 
-Dictionary with broadcast support.
+Python dictionary with broadcast support.
 
 # Usage
 
