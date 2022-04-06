@@ -1,0 +1,29 @@
+name: Publish Python 🐍 distributions 📦 to PyPI and TestPyPI
+
+on:
+  workflow_dispatch:  # TODO remove me
+  release:
+    types: [published]
+jobs:
+  build-n-publish:
+    name: Build and publish Python 🐍 distributions 📦 to PyPI
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Set up Python 3.9
+        uses: actions/setup-python@v3
+        with:
+          python-version: 3.9
+      - name: Build package
+        run: |
+          curl -sSL https://install.python-poetry.org | python3 -
+          export PATH=$PATH:$HOME/.local/bin
+          poetry build
+          echo "VERSION_STR=`poetry version`" >> $GITHUB_ENV
+      - name: Publish package to Test PyPI
+        if: ${{ github.event_name == 'release' && $VERSION_STR == "bcdict " + $GITHUB_REF }}
+        uses: pypa/gh-action-pypi-publish@release/v1
+        with:
+          user: __token__
+          password: ${{ secrets.TEST_PYPI_API_TOKEN }}
+          repository_url: https://test.pypi.org/legacy/
