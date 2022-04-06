@@ -1,7 +1,7 @@
 [tool.poetry]
 name = "bcdict"
 version = "0.1.0"
-description = "Python Boilerplate contains all the boilerplate you need to create a Python package."
+description = "Python dictionary with broadcast support."
 authors = ["Marius Helf <helfsmarius@gmail.com>"]
 license = "MIT"
 readme = "README.md"
@@ -18,18 +18,18 @@ classifiers = [
 ]
 
 [tool.poetry.dependencies]
-python = "^3.7"
+python = "^3.7.1,<4"
 
 [tool.poetry.dev-dependencies]
 pre-commit = "^2.8"
 pytest = "^7.1.1"
 tox = "^3.20.1"
-twine = "^3.2.0"
+twine = "^4.0.0"
 
-# required for integration tests:
-#pandas = "^1.0.0"
+# required for integration tests and examples:
+pandas = ">1,<1.4"
 pytest-cov = "^3.0.0"
-#scikit-learn = "^1.0.2"
+scikit-learn = "^1.0.2"
 
 [tool.isort]
 profile = "black"
@@ -38,4 +38,3 @@ multi_line_output = 3
 [build-system]
 requires = ["poetry>=1.0"]
 build-backend = "poetry.masonry.api"
-
