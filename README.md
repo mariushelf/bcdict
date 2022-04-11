@@ -149,6 +149,15 @@ Author: Marius Helf
   ([helfsmarius@gmail.com](mailto:helfsmarius@gmail.com))
 
 
+# Changelog
+
+## v0.2.0
+* remove `item()` function. Use `.a[]` instead.
+
+## v0.1.0
+* initial release
+
+
 # License
 
 MIT -- see [LICENSE](LICENSE)
