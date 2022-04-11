@@ -7,6 +7,10 @@
 
 Python dictionary with broadcast support.
 
+# Installation
+
+`pip install bcdict`
+
 # Usage
 
 ```python
