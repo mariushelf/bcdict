@@ -35,6 +35,15 @@ twine = "^4.0.0"
 profile = "black"
 multi_line_output = 3
 
+
+# pytest configuration
+[tool.pytest.ini_options]
+minversion = "6.0"
+addopts = "--cov=bcdict --cov-report term --cov-report xml:coverage.xml --junitxml=report.xml --doctest-modules --doctest-continue-on-failure -rA"
+testpaths = [
+    "tests",
+    "bcdict",
+]
 [build-system]
 requires = ["poetry>=1.0"]
 build-backend = "poetry.masonry.api"

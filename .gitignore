@@ -166,4 +166,5 @@ data/**
 .~*
 #poetry.lock
 .isort.cfg
+report.xml
 
