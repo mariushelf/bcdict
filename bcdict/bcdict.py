@@ -67,7 +67,7 @@ class BCDict(dict, Generic[K, V]):
     {'a': 5, 'b': 6}
 
     When there is a conflict between an attribute in the values and an attribute in
-    `BCDict`, use the attribute accessor and item() function explicitly:
+    `BCDict`, use the attribute accessor explicitly:
 
     >>> d.a.upper()
     {'a': 'HELLO', 'b': 'WORLD!'}
@@ -76,7 +76,7 @@ class BCDict(dict, Generic[K, V]):
     >>> n = BCDict({1:"hello", 2: "world"})
     >>> n[1]
     'hello'
-    >>> n.item(1)
+    >>> n.a[1]
     {1: 'e', 2: 'o'}
     """
 
@@ -120,14 +120,6 @@ class BCDict(dict, Generic[K, V]):
     def a(self) -> BCDict._DictAccessor:
         """Shorthand version of `broadcast` property."""
         return self._DictAccessor(self)
-
-    def item(self, *item: Any) -> BCDict[K, Any]:
-        """Slice each value in the dictionary with `item` and return a new dict."""
-        if len(item) != 1:
-            return BCDict({k: v[slice(*item)] for k, v in self.items()})
-        else:
-            item = item[0]
-            return BCDict({k: v[item] for k, v in self.items()})
 
     def __getitem__(self, item: Any) -> V | BCDict[K, Any]:
         """Slice function.

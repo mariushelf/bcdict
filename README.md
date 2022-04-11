@@ -1,5 +1,5 @@
 [![Tests](https://github.com/mariushelf/bcdict/actions/workflows/tests.yml/badge.svg)](https://github.com/mariushelf/bcdict/actions/workflows/tests.yml)
-[![codecov](https://codecov.io/gh/mariushelf/bcdict/branch/master/graph/badge.svg?token=5E2159JF60)](https://codecov.io/gh/mariushelf/bcdict)
+[![codecov](https://codecov.io/gh/mariushelf/bcdict/branch/master/graph/badge.svg)](https://codecov.io/gh/mariushelf/bcdict)
 [![PyPI version](https://badge.fury.io/py/bcdict.svg)](https://pypi.org/project/bcdict/)
 
 # Broadcast Dictionary
@@ -50,7 +50,7 @@ Applying functions:
 ```
 
 When there is a conflict between an attribute in the values and an attribute in
-`BCDict`, use the attribute accessor and item() function explicitly:
+`BCDict`, use the attribute accessor explicitly:
 
 ```python
 >>> d.a.upper()
@@ -62,7 +62,8 @@ Slicing with conflicting keys:
 >>> n = BCDict({1:"hello", 2: "world"})
 >>> n[1]
 'hello'
->>> n.item(1)
+>>> # Using the attribute accessor:
+>>> n.a[1]
 {1: 'e', 2: 'o'}
 ```
 
@@ -135,8 +136,8 @@ pprint(scores)
 assert list(scores.keys()) == datasets
 assert all((isinstance(v, float) for v in scores.values()))
 
-# Conclusion: no single for loop or dict comprehension used to train 3 models
-# predict and evaluate 3 grids :)
+# Conclusion: not a single for loop or dict comprehension used to train 3 models
+# predict and evaluate 3 data sets :)
 
 ```
 

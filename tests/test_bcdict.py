@@ -98,6 +98,26 @@ def test_implicit_slicing_access(d):
     assert d[1] == {"A": "1", "B": "2"}, d[1]
 
 
+def test_conflicting_item_access():
+    d = BCDict({1: "Hello", 2: "World"})
+    assert d[1] == "Hello"
+
+
+def test_conflicting_item_access_with_accessor():
+    d = BCDict({1: "Hello", 2: "World"})
+    assert d.a[1] == {1: "e", 2: "o"}
+
+
+def test_elements_with_attribute_a():
+    class Obj:
+        def __init__(self):
+            self.a = "this is A"
+
+    d = BCDict({"A": Obj(), "B": Obj()})
+    assert isinstance(d.a, BCDict._DictAccessor)
+    assert d.a.a == {"A": "this is A", "B": "this is A"}
+
+
 def test_parent_element_access(d, s1):
     assert d["A"] is s1
 
