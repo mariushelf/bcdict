@@ -7,7 +7,7 @@ license = "MIT"
 readme = "README.md"
 homepage = "https://github.com/mariushelf/bcdict"
 repository = "https://github.com/mariushelf/bcdict"
-documentation = "https://github.com/mariushelf/bcdict"
+documentation = "https://bcdict.readthedocs.io"
 classifiers = [
     "Development Status :: 4 - Beta",
     "Programming Language :: Python :: 3.7",
