@@ -10,7 +10,6 @@ hidden:
 glob:
 ---
 self
-Getting Started <README>
 ```
 
 ```{toctree}
@@ -19,7 +18,7 @@ maxdepth: 3
 caption: "API Reference"
 hidden:
 ---
-api_reference
+API Reference <_apidoc/bcdict>
 Github repository <https://github.com/mariushelf/bcdict>
 LICENSE
 ```
@@ -30,12 +29,12 @@ LICENSE
 :column: col-lg-4 px-2 py-2
 :card:
 
-**[Getting Started](README)**
+**[Getting Started](readme)**
 ^^^
 README.md
 
 ---
-**[API Reference](api_reference)**
+**[API Reference](_apidoc/bcdict.rst)**
 ^^^
 Full API Documentation
 
@@ -48,4 +47,8 @@ MIT
 **[Github](https://github.com/mariushelf/bcdict)**
 ^^^
 [gh:mariushelf/bcdict](https://github.com/mariushelf/bcdict)
+:::
+
+(readme)=
+:::{include} README.md
 :::

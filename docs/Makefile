@@ -15,9 +15,8 @@ help:
 .PHONY: help Makefile
 
 clean:
-	rm -r "$(BUILDDIR)"
-	rm -r "$(SOURCEDIR)/_apidoc"
-	mkdir "$(BUILDDIR)"
+	rm -rf "$(BUILDDIR)"
+	rm -rf "$(SOURCEDIR)/_apidoc"
 
 
 livehtml:

@@ -21,4 +21,4 @@ publish: test clean build
 .PHONY: docs
 
 docs:
-	cd docs && make html
+	cd docs && poetry run make html

@@ -45,15 +45,17 @@
    {% endif %}
    {% endblock %}
 
-{% block modules %}
-{% if modules %}
-.. rubric:: Modules
+   {% block modules %}
+   {% if modules %}
+   .. rubric:: Modules
 
-.. autosummary::
-   :toctree:
-   :recursive:
-{% for item in modules %}
-   {{ item }}
-{%- endfor %}
-{% endif %}
-{% endblock %}
+   .. autosummary::
+      :toctree:
+      :recursive:
+   {% for item in modules %}
+      {{ item }}
+   {%- endfor %}
+   {% endif %}
+   {% endblock %}
+
+   .. rubric:: Documentation
