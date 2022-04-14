@@ -1,1 +1,3 @@
-from .bcdict import BCDict
+from .bcdict import BCDict, to_list
+
+# __all__ = ["bcdict"]

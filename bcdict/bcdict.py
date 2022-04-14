@@ -23,7 +23,9 @@ def to_list(*args: dict) -> dict:
 
 
 class BCDict(dict, Generic[K, V]):
-    """Dictionary which allows to apply functions to all its elements, or
+    """Dictionary with broadcast support.
+
+    Allows to apply functions to all its elements, or
     retrieve attributes of all its elements.
 
     Parameters
@@ -40,29 +42,35 @@ class BCDict(dict, Generic[K, V]):
 
     Examples
     --------
+
     >>> d = BCDict({"a": "hello", "b": "world!"})
     >>> d
     {'a': 'hello', 'b': 'world!'}
 
 
-    # regular element access:
+    Regular element access:
+
     >>> d['a']
     'hello'
 
-    # regular element assignments
+    Regular element assignments
+
     >>> d['a'] = "Hello"
     >>> d
     {'a': 'Hello', 'b': 'world!'}
 
     Calling functions:
+
     >>> d.upper()
     {'a': 'HELLO', 'b': 'WORLD!'}
 
     Slicing:
+
     >>> d[1:3]
     {'a': 'el', 'b': 'or'}
 
     Applying functions:
+
     >>> d.pipe(len)
     {'a': 5, 'b': 6}
 
@@ -73,6 +81,7 @@ class BCDict(dict, Generic[K, V]):
     {'a': 'HELLO', 'b': 'WORLD!'}
 
     Slicing with conflicting keys:
+
     >>> n = BCDict({1:"hello", 2: "world"})
     >>> n[1]
     'hello'

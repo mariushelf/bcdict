@@ -7,11 +7,11 @@
 
 Python dictionary with broadcast support.
 
-# Installation
+## Installation
 
 `pip install bcdict`
 
-# Usage
+## Usage
 
 ```python
 from bcdict import BCDict
@@ -71,7 +71,7 @@ Slicing with conflicting keys:
 {1: 'e', 2: 'o'}
 ```
 
-# Full example
+## Full example
 
 Here we create a dictionary with 3 datasets and then train, apply and validate
 a linear regression on all 3 datasets without a single for loop or dictionary
@@ -147,22 +147,18 @@ assert all((isinstance(v, float) for v in scores.values()))
 
 
 
-Original repository: [https://github.com/mariushelf/bcdict](https://github.com/mariushelf/bcdict)
+## Changelog
 
-Author: Marius Helf 
-  ([helfsmarius@gmail.com](mailto:helfsmarius@gmail.com))
-
-
-# Changelog
-
-## v0.2.0
+### v0.2.0
 * remove `item()` function. Use `.a[]` instead.
 
-## v0.1.0
+### v0.1.0
 * initial release
 
 
-# License
+Original repository: [https://github.com/mariushelf/bcdict](https://github.com/mariushelf/bcdict)
 
-MIT -- see [LICENSE](LICENSE)
+Author: Marius Helf
+([helfsmarius@gmail.com](mailto:helfsmarius@gmail.com))
+
 

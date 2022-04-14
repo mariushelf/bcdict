@@ -1,3 +1,5 @@
+.DS_Store
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
@@ -70,6 +72,8 @@ instance/
 
 # Sphinx documentation
 docs/_build/
+docs/build/
+docs/source/_apidoc/
 
 # PyBuilder
 target/

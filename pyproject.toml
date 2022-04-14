@@ -21,11 +21,22 @@ classifiers = [
 python = "^3.7.1,<4"
 
 [tool.poetry.dev-dependencies]
+# testing and linting
 pre-commit = "^2.8"
 pytest = "^7.1.1"
 pytest-cov = "^3.0.0"
 tox = "^3.20.1"
+
+# deployment
 twine = "^4.0.0"
+
+# documentation
+myst-parser = "^0.17.0"
+Sphinx = "^4.5.0"
+sphinx-autobuild = "^2021.3.14"
+sphinx-panels = "^0.6.0"
+sphinx-rtd-theme = "^1.0.0"
+sphinxcontrib-mermaid = "^0.7.1"
 
 # required for integration tests and examples:
 #pandas = ">1,<1.4"
