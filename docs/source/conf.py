@@ -14,7 +14,7 @@ import os
 import sys
 
 sys.path.insert(0, os.path.abspath(".."))
-
+import bcdict  # noqa: E402
 
 # -- Project information -----------------------------------------------------
 
@@ -23,7 +23,8 @@ copyright = "2022, Marius Helf"
 author = "Marius Helf"
 
 # The full version, including alpha/beta/rc tags
-release = "0.2.0"
+release = bcdict.__version__
+version = bcdict.__version__
 
 
 # -- General configuration ---------------------------------------------------
