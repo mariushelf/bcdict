@@ -920,7 +920,7 @@ docs = ["myst-parser", "Sphinx", "sphinx-autobuild", "sphinx-panels", "sphinx-rt
 [metadata]
 lock-version = "1.1"
 python-versions = "^3.7.1,<4"
-content-hash = "c066f4bd764318790d098c8b07b2d4c25569203bfd16c7d0549f20382c1d586b"
+content-hash = "0bc15bd8113caf4aca8db569b39b651a7586260139d17a97c9e15e99eef42620"
 
 [metadata.files]
 alabaster = [

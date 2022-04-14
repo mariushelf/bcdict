@@ -1,10 +1,12 @@
 from __future__ import annotations
 
+import re
 import sys
 from collections.abc import Collection
 
 import pytest
 
+import bcdict
 from bcdict import BCDict
 from bcdict.bcdict import to_list
 
@@ -289,3 +291,10 @@ def test_to_list_raises_on_different_keys(d1, d2):
 def test_to_list_raises_on_empty_input():
     with pytest.raises(ValueError):
         to_list()
+
+
+def test_version_is_semver_string():
+    semver_pattern = r"^(?P<major>0|[1-9]\d*)\.(?P<minor>0|[1-9]\d*)\.(?P<patch>0|[1-9]\d*)(?:-(?P<prerelease>(?:0|[1-9]\d*|\d*[a-zA-Z-][0-9a-zA-Z-]*)(?:\.(?:0|[1-9]\d*|\d*[a-zA-Z-][0-9a-zA-Z-]*))*))?(?:\+(?P<buildmetadata>[0-9a-zA-Z-]+(?:\.[0-9a-zA-Z-]+)*))?$"
+    version = bcdict.__version__
+    print(f"Version is {version}")
+    assert re.match(semver_pattern, version)

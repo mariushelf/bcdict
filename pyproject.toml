@@ -1,8 +1,8 @@
 [tool.poetry]
 name = "bcdict"
-version = "0.2.0"
+version = "0.3.0"
 description = "Python dictionary with broadcast support."
-authors = ["Marius Helf <helfsmarius@gmail.com>"]
+authors = ["Marius Helf <marius@happyyeti.tech>"]
 license = "MIT"
 readme = "README.md"
 homepage = "https://github.com/mariushelf/bcdict"
@@ -19,6 +19,7 @@ classifiers = [
 
 [tool.poetry.dependencies]
 python = "^3.7.1,<4"
+importlib-metadata = {version="^4.11.3", python="<3.8"}
 
 # documentation
 # Due to the way poetry (and readthedocs) handle package extras (dependencies),
