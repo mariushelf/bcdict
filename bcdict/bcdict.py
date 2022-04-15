@@ -22,6 +22,100 @@ def to_list(*args: dict) -> dict:
     return res
 
 
+def apply(f: Callable, *args: Any, **kwargs: Any) -> BCDict[K, Any]:
+    """Apply callable on each element of some dicts.
+
+    The first argument that is a BCDict serves as reference. `f` is called for each
+    of its elements.
+
+    args and kwargs are passed to `f` and broadcast if applicable.
+
+    If there is no BCDict in the args or kwargs, a ValueError is raised.
+
+    Parameters
+    ----------
+    f : callable
+        function or callable that is called
+    args : BCDict | Any
+        positional arguments passed to f
+    kwargs : BCDict | Any
+        keyword arguments passed to f
+
+    Returns
+    -------
+    return_value : BCDict
+        a broadcast dictionary with the same keys as the first BCDict in the arguments.
+        Its values are the return values from the respective call to `f`.
+
+    Examples
+    --------
+    >>> d = BCDict({"A": 2, "B": 3})
+    >>> factor = BCDict({"A": 4, "B": 5})
+    >>> f = lambda x1, x2, x3: x1 * x2 + x3
+    >>> apply(f, d, factor, 1)
+    {"A": 9, "B": 16}
+
+    # 2 * 4 + 1 = 9
+    # 3 * 5 + 1 = 16
+    """
+    ref = None
+    for arg in args:
+        if isinstance(arg, BCDict):
+            ref = arg
+            break
+    if ref is None:
+        for kwarg in kwargs.values():
+            if isinstance(kwarg, BCDict):
+                ref = kwarg
+                break
+    if ref is None:
+        raise ValueError("No BCDict in arguments")
+    keys = ref
+    return _broadcast_call(keys, f, *args, **kwargs)
+
+
+def bootstrap(keys: list[str], f: Callable, *args, **kwargs):
+    """Call f for for every key.
+
+    args and kwargs are passed to `f` and broadcast if applicable.
+
+    The result is a BCDcict with an entry for each element of keys and the respective
+    return value of `f` as values.
+
+    The keys are not passed to `f`, but only used as dictionary keys.
+    """
+    return _broadcast_call(keys, f, *args, **kwargs)
+
+
+def bootstrap_arg(keys: list[str], f: Callable, *args, **kwargs):
+    """Same as `bootstrap()`, but pass key as positional argument.
+
+    When calling `f` for a key, the key is passed as the first positional argument."""
+    return _broadcast_call(keys, f, *args, **kwargs, __key_as_arg=True)
+
+
+def bootstrap_kwarg(keys: list[str], f: Callable, *args, argname: str, **kwargs):
+    """Same as `bootstrap()`, but pass key as keyword argument.
+
+    When calling `f` for a key, the key is passed as argument with name `argname`."""
+    return _broadcast_call(keys, f, *args, **kwargs, __key_as_arg=argname)
+
+
+def _broadcast_call(
+    keys, f: Callable, *args, __key_as_arg: bool | str = False, **kwargs
+):
+    result: BCDict = BCDict()
+    for key in keys:
+        pipeargs, pipekwargs = BCDict._broadcast_args(key, keys, *args, **kwargs)
+        if __key_as_arg:
+            if __key_as_arg is True:
+                pipeargs.insert(0, key)
+            else:
+                pipekwargs[__key_as_arg] = key
+        result[key] = f(*pipeargs, **pipekwargs)
+    return result
+
+
 class BCDict(dict, Generic[K, V]):
     """Dictionary with broadcast support.
 
@@ -165,12 +259,7 @@ class BCDict(dict, Generic[K, V]):
 
         args and kwargs are passed to `f` and broadcasted if applicable.
         """
-        result: BCDict[K, Any] = BCDict()
-        keys = self.keys()
-        for k, v in self.items():
-            pipeargs, pipekwargs = self._broadcast_args(k, keys, *args, **kwargs)
-            result[k] = f(v, *pipeargs, **pipekwargs)
-        return result
+        return apply(f, self, *args, **kwargs)
 
     def __add__(self, other: dict | Any) -> BCDict:
         return self.__generic_operator(other, operator.add)

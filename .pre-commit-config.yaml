@@ -1,5 +1,5 @@
 minimum_pre_commit_version: "1.21"
-files: ^.*\.py$
+files: ^bcdict/.*\.py$
 repos:
   - repo: https://github.com/timothycrosley/isort
     rev: 5.10.1

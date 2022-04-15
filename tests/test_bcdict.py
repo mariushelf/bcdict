@@ -136,13 +136,68 @@ def test_pipe_simple(d):
 def test_pipe_with_args(d):
     args = ["X", {"A": "A", "B": "B"}]
     res = d.pipe(lambda s, *args: s.data + "".join(args), *args)
+    assert isinstance(res, BCDict)
     assert res == {"A": "s1XA", "B": "s2XB"}, res
 
 
 def test_pipe_with_kwargs(d):
     kwargs = {"z": "Z", "q": {"A": "Q1", "B": "Q2"}}
     res = d.pipe(lambda s, **kwargs: s.data + kwargs["z"] + kwargs["q"], **kwargs)
+    assert isinstance(res, BCDict)
     assert res == {"A": "s1ZQ1", "B": "s2ZQ2"}, res
+
+
+def test_apply_simple(d):
+    f = lambda s: s.data
+    assert bcdict.apply(f, d) == {"A": "s1", "B": "s2"}
+
+
+def test_apply_with_args(d):
+    args = ["X", {"A": "A", "B": "B"}]
+    f = lambda s, *args: s.data + "".join(args)
+    res = bcdict.apply(f, d, *args)
+    assert isinstance(res, BCDict)
+    assert res == {"A": "s1XA", "B": "s2XB"}, res
+
+
+def test_apply_with_kwargs(d):
+    kwargs = {"z": "Z", "q": {"A": "Q1", "B": "Q2"}}
+    f = lambda s, **kwargs: s.data + kwargs["z"] + kwargs["q"]
+    res = bcdict.apply(f, d, **kwargs)
+    assert isinstance(res, BCDict)
+    assert res == {"A": "s1ZQ1", "B": "s2ZQ2"}, res
+
+
+def test_bootstrap(num_dict):
+    keys = ["A", "B"]
+    f = lambda x, m: x * m
+    res = bcdict.bootstrap(keys, f, num_dict, m=2)
+    assert isinstance(res, BCDict)
+    assert res == {"A": 8, "B": 10}
+
+
+def test_bootstrap_arg(num_dict):
+    keys = ["A", "B"]
+    f = lambda x, m: x * m
+    res = bcdict.bootstrap_arg(keys, f, num_dict)
+    assert isinstance(res, BCDict)
+    assert res == {"A": "AAAA", "B": "BBBBB"}
+
+
+def test_bootstrap_kwarg_with_broadcast(num_dict):
+    keys = ["A", "B"]
+    f = lambda n, s: str(n) + s
+    res = bcdict.bootstrap_kwarg(keys, f, n=num_dict, argname="s")
+    assert isinstance(res, BCDict)
+    assert res == {"A": "4A", "B": "5B"}
+
+
+def test_bootstrap_kwarg():
+    keys = ["A", "B"]
+    f = lambda n, s: str(n) + s
+    res = bcdict.bootstrap_kwarg(keys, f, n=3, argname="s")
+    assert isinstance(res, BCDict)
+    assert res == {"A": "3A", "B": "3B"}
 
 
 @pytest.mark.skipif(

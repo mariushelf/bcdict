@@ -1,4 +1,4 @@
-from .bcdict import BCDict, to_list
+from .bcdict import BCDict, apply, bootstrap, bootstrap_arg, bootstrap_kwarg, to_list
 
 try:
     from importlib.metadata import version
