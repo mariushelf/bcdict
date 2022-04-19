@@ -10,7 +10,7 @@ hidden:
 glob:
 ---
 self
-train_test_evaluate
+examples/examples
 ```
 
 ```{toctree}
