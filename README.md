@@ -143,12 +143,24 @@ assert all((isinstance(v, float) for v in scores.values()))
 
 # Conclusion: not a single for loop or dict comprehension used to train 3 models
 # predict and evaluate 3 data sets :)
-
 ```
 
 
+## Next steps
+
+Check out the full documentation and the examples on
+[bcdict.readthedocs.io](https://bcdict.readthedocs.io/en/latest/)
+
 
 ## Changelog
+
+### v0.3.0
+* new functions in `bcdict` package:
+  * `apply()`
+  * `broadcast()`
+  * `broadcast_arg()`
+  * `broadcast_kwarg()`
+* docs: write some documentation and host it on [readthedocs](https://bcdict.readthedocs.io/en/latest/)
 
 ### v0.2.0
 * remove `item()` function. Use `.a[]` instead.
@@ -161,5 +173,3 @@ Original repository: [https://github.com/mariushelf/bcdict](https://github.com/m
 
 Author: Marius Helf
 ([helfsmarius@gmail.com](mailto:helfsmarius@gmail.com))
-
-
