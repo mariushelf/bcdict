@@ -348,6 +348,43 @@ def test_to_list_raises_on_empty_input():
         to_list()
 
 
+def test_bcdict_kwargs_unpacking(num_dict):
+    def add(A, B):
+        return A + B
+
+    assert add(**num_dict) == 9
+
+
+def test_bcdict_iteration(num_dict):
+    keys = [k for k in num_dict]
+    assert keys == ["A", "B"]
+
+
+@pytest.mark.parametrize("type_", (tuple, list))
+def test_bcdict_unpack(type_):
+    d = BCDict(
+        {
+            "A": type_((1, 2)),
+            "B": type_((3, 4)),
+        }
+    )
+    x, y = d.unpack()
+    assert x == {"A": 1, "B": 3}
+    assert y == {"A": 2, "B": 4}
+
+
+def test_bcdict_unpack_different_len_raises():
+    """Test that tuple unpacking with tuples of different lengths raises."""
+    d = BCDict(
+        {
+            "A": (1, 2),
+            "B": (3, 4, 5),
+        }
+    )
+    with pytest.raises(ValueError):
+        d.unpack()
+
+
 def test_version_is_semver_string():
     semver_pattern = r"^(?P<major>0|[1-9]\d*)\.(?P<minor>0|[1-9]\d*)\.(?P<patch>0|[1-9]\d*)(?:-(?P<prerelease>(?:0|[1-9]\d*|\d*[a-zA-Z-][0-9a-zA-Z-]*)(?:\.(?:0|[1-9]\d*|\d*[a-zA-Z-][0-9a-zA-Z-]*))*))?(?:\+(?P<buildmetadata>[0-9a-zA-Z-]+(?:\.[0-9a-zA-Z-]+)*))?$"
     version = bcdict.__version__

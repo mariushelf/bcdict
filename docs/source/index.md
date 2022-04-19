@@ -10,6 +10,7 @@ hidden:
 glob:
 ---
 self
+train_test_evaluate
 ```
 
 ```{toctree}
@@ -32,6 +33,11 @@ LICENSE
 **[Getting Started](readme)**
 ^^^
 README.md
+
+---
+**[Examples](../../examples/examples)**
+^^^
+Jupyter Notebook
 
 ---
 **[API Reference](_apidoc/bcdict.rst)**

@@ -1,7 +1,7 @@
 from __future__ import annotations
 
 import operator
-from collections.abc import Collection
+from collections.abc import Collection, Sequence
 from typing import Any, Callable, Generic, TypeVar
 
 K = TypeVar("K")
@@ -356,3 +356,27 @@ class BCDict(dict, Generic[K, V]):
             for kw_name, kw_val in kwargs.items()
         }
         return pipeargs, pipekwargs
+
+    def unpack(self):
+        """Convert BCDict of tuples into tuple of `BCDict`s."""
+
+        # check that all values are tuples
+        if not all(isinstance(v, Sequence) for v in self.values()):
+            raise ValueError("all values must be sequences")
+
+        # check that all values have the same length
+        lengths = set(map(len, self.values()))
+        if not len(lengths) == 1:
+            raise ValueError(
+                f"all values must be sequences of the same length, but lengths are {lengths}"
+            )
+        tuple_length = lengths.pop()
+        result = tuple([BCDict() for _ in range(tuple_length)])
+        for i in range(tuple_length):
+            for k, v in self.items():
+                result[i][k] = v[i]
+
+        return result
+
+    def __repr__(self):
+        return f"BCDict({super().__repr__()})"

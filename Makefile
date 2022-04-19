@@ -22,3 +22,7 @@ publish: test clean build
 
 docs:
 	cd docs && poetry run make html
+
+lab: install
+	poetry run jupyter lab
+
