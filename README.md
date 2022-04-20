@@ -154,6 +154,9 @@ Check out the full documentation and the examples on
 
 ## Changelog
 
+### v0.4.0
+* new functions `eq()` and `ne()` for equality/inequality with broadcast support
+
 ### v0.3.0
 * new functions in `bcdict` package:
   * `apply()`
