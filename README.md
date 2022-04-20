@@ -154,6 +154,9 @@ Check out the full documentation and the examples on
 
 ## Changelog
 
+### v0.4.1
+* fix: sphinxcontrib-mermaid gets installed as default dependency, should be dev dependency
+
 ### v0.4.0
 * new functions `eq()` and `ne()` for equality/inequality with broadcast support
 
