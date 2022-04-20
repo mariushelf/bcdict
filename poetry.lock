@@ -1947,7 +1947,7 @@ docs = ["myst-nb", "Sphinx", "sphinx-autobuild", "sphinx-panels", "sphinx-rtd-th
 [metadata]
 lock-version = "1.1"
 python-versions = "^3.7.1,<4"
-content-hash = "8d9bc66aebec6bfd7c8041ee1242a02f153bd069ed08eee84c97cb03decda824"
+content-hash = "827aec8b459a62189550e9b12c12cd77b099efa3ea700d7be67d05b6320cab62"
 
 [metadata.files]
 alabaster = [

@@ -43,9 +43,11 @@ tox = "^3.20.1"
 # deployment
 twine = "^4.0.0"
 
-# required for integration tests and examples:
-pandas = {version="=1.3.1"}
-scikit-learn = "=1.0.2"
+# required for integration tests and examples.
+# Do not install for python 3.10 and pypy because there's no binary distribution
+# for these packages yet.
+pandas = {version="=1.3.1", python="<3.10", markers="implementation_name == 'CPython'"}
+scikit-learn = {version="=1.0.2", python="<3.10", markers="implementation_name == 'CPython'"}
 
 
 [tool.poetry.extras]

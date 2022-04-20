@@ -204,7 +204,7 @@ def test_bootstrap_kwarg():
     "pandas" not in sys.modules or "sklearn" not in sys.modules,
     reason="requires extra-tests dependencies",
 )
-def _integration_test():
+def test_integration_test():
     """Run a complete train/test/evaluate pipeline with `BCDict`s."""
     from pprint import pprint
 
