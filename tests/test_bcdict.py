@@ -283,6 +283,8 @@ def _integration_test():
         ("d<=5", {"A": True, "B": True}),
         ("d==5", False),  # implemented in `dict`, not overriden
         ("d!=5", True),  # implemented in `dict`, not overriden
+        ("d.eq(5)", {"A": False, "B": True}),
+        ("d.ne(5)", {"A": True, "B": False}),
         ("d>5", {"A": False, "B": False}),
         ("d>=5", {"A": False, "B": True}),
     ],

@@ -303,8 +303,16 @@ class BCDict(dict, Generic[K, V]):
     def __ge__(self, other: dict | Any) -> BCDict:
         return self.__generic_operator(other, operator.ge)
 
-    # eq, ne not supported because they are defined in the `dict` class
-    # and we don't want to override them
+    # __eq__, __ne__ not supported because they are defined in the `dict` class
+    # and we don't want to override them. Using `eq()` and `ne()` instead.
+
+    def eq(self, other: dict | Any) -> BCDict:
+        """Element-wise equality with broadcast support."""
+        return self.__generic_operator(other, operator.eq)
+
+    def ne(self, other: dict | Any) -> BCDict:
+        """Element-wise inequality with broadcast support."""
+        return self.__generic_operator(other, operator.ne)
 
     def __generic_operator(
         self, other: Any | dict, f: Callable[[Any, Any], Any]
