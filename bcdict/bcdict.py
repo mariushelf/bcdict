@@ -366,7 +366,7 @@ class BCDict(dict, Generic[K, V]):
         return pipeargs, pipekwargs
 
     def unpack(self):
-        """Convert BCDict of tuples into tuple of ``BCDict``s."""
+        """Convert BCDict of tuples into tuple of ``BCDict``."""
 
         # check that all values are tuples
         if not all(isinstance(v, Sequence) for v in self.values()):
