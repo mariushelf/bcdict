@@ -14,7 +14,7 @@ test_docs_examples:
 	echo "Testing Jupyter notebook execution in documentation..."
 	poetry run pytest --nbval-lax docs/source
 
-test_docs: test_docs_examples docs
+test_docs: clean_docs test_docs_examples docs
 	echo "Testing links in documentation..."
 	cd docs && poetry run make linkcheck
 
