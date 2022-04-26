@@ -1,5 +1,15 @@
 # Examples
 
+:::{toctree}
+---
+maxdepth: 2
+caption: "Examples"
+hidden:
+glob:
+---
+Overview <self>
+*
+:::
 
 :::{panels}
 :container: +full-width text-center
@@ -17,6 +27,3 @@ Walkthrough of all functionality of `BCDict`.
 Train, apply and evaluate an sklearn model on 3 datasets simultaneously.
 
 :::
-
-* Getting started: [Introduction](introduction.ipynb)
-* Full example with pandas and sklearn: [Train/test/eval](train_test_evaluate.ipynb)
