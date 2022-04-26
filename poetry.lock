@@ -526,7 +526,7 @@ i18n = ["Babel (>=2.7)"]
 name = "joblib"
 version = "1.1.0"
 description = "Lightweight pipelining with Python functions"
-category = "dev"
+category = "main"
 optional = false
 python-versions = ">=3.6"
 
@@ -1048,7 +1048,7 @@ test = ["pytest", "pytest-tornasync", "pytest-console-scripts"]
 name = "numpy"
 version = "1.21.1"
 description = "NumPy is the fundamental package for array computing with Python."
-category = "dev"
+category = "main"
 optional = false
 python-versions = ">=3.7"
 
@@ -1067,7 +1067,7 @@ pyparsing = ">=2.0.2,<3.0.5 || >3.0.5"
 name = "pandas"
 version = "1.3.1"
 description = "Powerful data structures for data analysis, time series, and statistics"
-category = "dev"
+category = "main"
 optional = false
 python-versions = ">=3.7.1"
 
@@ -1453,7 +1453,7 @@ jupyter = ["ipywidgets (>=7.5.1,<8.0.0)"]
 name = "scikit-learn"
 version = "1.0.2"
 description = "A set of python modules for machine learning and data mining"
-category = "dev"
+category = "main"
 optional = false
 python-versions = ">=3.7"
 
@@ -1473,7 +1473,7 @@ tests = ["matplotlib (>=2.2.3)", "scikit-image (>=0.14.5)", "pandas (>=0.25.0)",
 name = "scipy"
 version = "1.6.1"
 description = "SciPy: Scientific Library for Python"
-category = "dev"
+category = "main"
 optional = false
 python-versions = ">=3.7"
 
@@ -1791,7 +1791,7 @@ test = ["pytest"]
 name = "threadpoolctl"
 version = "3.1.0"
 description = "threadpoolctl"
-category = "dev"
+category = "main"
 optional = false
 python-versions = ">=3.6"
 
@@ -1980,12 +1980,12 @@ docs = ["sphinx", "jaraco.packaging (>=9)", "rst.linker (>=1.9)"]
 testing = ["pytest (>=6)", "pytest-checkdocs (>=2.4)", "pytest-flake8", "pytest-cov", "pytest-enabler (>=1.0.1)", "jaraco.itertools", "func-timeout", "pytest-black (>=0.3.7)", "pytest-mypy (>=0.9.1)"]
 
 [extras]
-docs = ["myst-nb", "Sphinx", "sphinx-autobuild", "sphinx-book-theme", "sphinx-copybutton", "sphinx-panels", "sphinxcontrib-mermaid"]
+docs = ["pandas", "scikit-learn", "myst-nb", "Sphinx", "sphinx-autobuild", "sphinx-book-theme", "sphinx-copybutton", "sphinx-panels", "sphinxcontrib-mermaid"]
 
 [metadata]
 lock-version = "1.1"
 python-versions = "^3.7.1,<4"
-content-hash = "cec227cc8cd56ba68fbaa5472599006df1e63a0d55b661a496825eabab542539"
+content-hash = "256b7595e1f6d49bdb08516059f24126ba804df4bff99f70c1aef64aa8aed489"
 
 [metadata.files]
 alabaster = [
