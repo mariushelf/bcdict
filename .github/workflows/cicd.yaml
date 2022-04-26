@@ -32,10 +32,33 @@ jobs:
       with:
         fail_ci_if_error: true
 #        token: ${{ secrets.CODECOV_TOKEN }} # not required for public repos
+  test_docs_examples:
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        python-version: ["3.9"]
+
+    steps:
+      - uses: actions/checkout@v3
+      - name: Set up Python ${{ matrix.python-version }}
+        uses: actions/setup-python@v3
+        with:
+          python-version: ${{ matrix.python-version }}
+      - name: Install dependencies
+        run: |
+          curl -sSL https://install.python-poetry.org | python3 -
+          export PATH=$PATH:$HOME/.local/bin
+          poetry install
+      - name: Run pytest for jupyter examples in docs
+        run: |
+          poetry run pytest --nbval-lax docs/source
   build-n-publish:
     environment: production
     name: Build and publish Python distributions to PyPI
-    needs: test
+    needs:
+      - test
+      - test_docs_examples
     if: github.event_name == 'release' && github.event.action == 'published'
     runs-on: ubuntu-latest
     steps:
