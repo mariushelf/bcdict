@@ -17,10 +17,11 @@ help:
 clean:
 	rm -rf "$(BUILDDIR)"
 	rm -rf "$(SOURCEDIR)/_apidoc"
+	rm -rf "jupyter_execute"
 
 
 livehtml:
-	poetry run sphinx-autobuild -a -b html "$(SOURCEDIR)" "$(BUILDDIR)" $(SPHINXOPTS) $(0) --open-browser --port 0 --watch ../bcdict
+	poetry run sphinx-autobuild -a -b html "$(SOURCEDIR)" "$(BUILDDIR)" $(SPHINXOPTS) $(0) --open-browser --port 0 --watch ../bcdict --watch ../README.md
 
 # Catch-all target: route all unknown targets to Sphinx using the new
 # "make mode" option.  $(O) is meant as a shortcut for $(SPHINXOPTS).

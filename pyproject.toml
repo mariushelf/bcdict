@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "bcdict"
-version = "0.4.1"
+version = "0.4.2"
 description = "Python dictionary with broadcast support."
 authors = ["Marius Helf <marius@happyyeti.tech>"]
 license = "MIT"
@@ -27,8 +27,10 @@ importlib-metadata = {version="^4.11.3", python="<3.8"}
 myst-nb = {version="^0.13.2", optional=true}
 Sphinx = {version="^4.5.0", optional=true}
 sphinx-autobuild = {version="^2021.3.14", optional=true}
+sphinx-book-theme = {version="^0.3.2", optional=true}
+sphinx-copybutton = {version="^0.5.0", optional=true}
 sphinx-panels = {version="^0.6.0", optional=true}
-sphinx-rtd-theme = {version="^1.0.0", optional=true}
+#sphinx-rtd-theme = {version="^1.0.0", optional=true}
 sphinxcontrib-mermaid = {version="^0.7.1", optional=true}
 
 [tool.poetry.dev-dependencies]
@@ -46,8 +48,8 @@ twine = "^4.0.0"
 # required for integration tests and examples.
 # Do not install for python 3.10 and pypy because there's no binary distribution
 # for these packages yet.
-pandas = {version="=1.3.1", python="<3.10", markers="implementation_name == 'CPython'"}
-scikit-learn = {version="=1.0.2", python="<3.10", markers="implementation_name == 'CPython'"}
+pandas = {version="=1.3.1", python="<3.10", markers="implementation_name == 'cpython'"}
+scikit-learn = {version="=1.0.2", python="<3.10", markers="implementation_name == 'cpython'"}
 
 
 [tool.poetry.extras]
@@ -55,8 +57,10 @@ docs = [
     "myst-nb",
     'Sphinx',
     'sphinx-autobuild',
+    'sphinx-book-theme',
+    'sphinx-copybutton',
     'sphinx-panels',
-    'sphinx-rtd-theme',
+#    'sphinx-rtd-theme',
     'sphinxcontrib-mermaid'
 ]
 
