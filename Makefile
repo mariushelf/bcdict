@@ -9,7 +9,12 @@ clean: clean_docs
 clean_docs:
 	cd docs && make clean
 
-test: install
+test_docs_examples: install
+	# test that notebooks in documentation execute
+	poetry run pytest --nbval-lax docs/source
+
+
+test: install test_docs_examples docs
 	poetry run tox -p -o -r
 
 build:

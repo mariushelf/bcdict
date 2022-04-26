@@ -54,6 +54,7 @@ twine = "^4.0.0"
 # for these packages yet.
 pandas = {version="=1.3.1", markers="python_version < '3.10' and implementation_name == 'cpython'"}
 scikit-learn = {version="=1.0.2", markers="python_version < '3.10' and implementation_name == 'cpython'"}
+nbval = "^0.9.6"
 
 
 [tool.poetry.extras]
