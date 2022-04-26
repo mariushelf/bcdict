@@ -116,7 +116,7 @@ def test_elements_with_attribute_a():
             self.a = "this is A"
 
     d = BCDict({"A": Obj(), "B": Obj()})
-    assert isinstance(d.a, BCDict._DictAccessor)
+    assert isinstance(d.a, BCDict.DictAccessor)
     assert d.a.a == {"A": "this is A", "B": "this is A"}
 
 

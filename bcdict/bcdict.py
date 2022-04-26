@@ -2,9 +2,9 @@ from __future__ import annotations
 
 import operator
 from collections.abc import Collection, Sequence
-from typing import Any, Callable, Generic, TypeVar
+from typing import Any, Callable, Generic, Hashable, TypeVar
 
-K = TypeVar("K")
+K = TypeVar("K", bound=Hashable)
 V = TypeVar("V")
 
 
@@ -34,7 +34,7 @@ def apply(f: Callable, *args: Any, **kwargs: Any) -> BCDict[K, Any]:
 
     Parameters
     ----------
-    f : callable
+    f : Callable
         function or callable that is called
     args : BCDict | Any
         positional arguments passed to f
@@ -183,7 +183,7 @@ class BCDict(dict, Generic[K, V]):
     {1: 'e', 2: 'o'}
     """
 
-    class _DictAccessor:
+    class DictAccessor:
         """Internal helper class.
 
         This is what BCDict.a returns.
@@ -214,15 +214,15 @@ class BCDict(dict, Generic[K, V]):
         return result
 
     @property
-    def broadcast(self) -> BCDict._DictAccessor:
+    def broadcast(self) -> BCDict.DictAccessor:
         """Attribute access. Use this to get an attribute of each value in the
         dictionary which has the same name as an attribute of the `BCDict` class."""
         return self.a
 
     @property
-    def a(self) -> BCDict._DictAccessor:
+    def a(self) -> BCDict.DictAccessor:
         """Shorthand version of `broadcast` property."""
-        return self._DictAccessor(self)
+        return self.DictAccessor(self)
 
     def __getitem__(self, item: Any) -> V | BCDict[K, Any]:
         """Slice function.
@@ -366,7 +366,7 @@ class BCDict(dict, Generic[K, V]):
         return pipeargs, pipekwargs
 
     def unpack(self):
-        """Convert BCDict of tuples into tuple of `BCDict`s."""
+        """Convert BCDict of tuples into tuple of ``BCDict``s."""
 
         # check that all values are tuples
         if not all(isinstance(v, Sequence) for v in self.values()):

@@ -32,7 +32,7 @@ jobs:
       with:
         fail_ci_if_error: true
 #        token: ${{ secrets.CODECOV_TOKEN }} # not required for public repos
-  test_docs_examples:
+  test_docs:
     runs-on: ubuntu-latest
     strategy:
       fail-fast: false
@@ -49,10 +49,10 @@ jobs:
         run: |
           curl -sSL https://install.python-poetry.org | python3 -
           export PATH=$PATH:$HOME/.local/bin
-          poetry install
-      - name: Run pytest for jupyter examples in docs
+          poetry install -E docs
+      - name: Test documentation build
         run: |
-          poetry run pytest --nbval-lax docs/source
+          poetry run make test_docs
   build-n-publish:
     environment: production
     name: Build and publish Python distributions to PyPI
