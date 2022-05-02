@@ -53,7 +53,7 @@ def apply(f: Callable, *args: Any, **kwargs: Any) -> BCDict[K, Any]:
     >>> factor = BCDict({"A": 4, "B": 5})
     >>> f = lambda x1, x2, x3: x1 * x2 + x3
     >>> apply(f, d, factor, 1)
-    {"A": 9, "B": 16}
+    BCDict({'A': 9, 'B': 16})
 
     # 2 * 4 + 1 = 9
     # 3 * 5 + 1 = 16
@@ -139,7 +139,7 @@ class BCDict(dict, Generic[K, V]):
 
     >>> d = BCDict({"a": "hello", "b": "world!"})
     >>> d
-    {'a': 'hello', 'b': 'world!'}
+    BCDict({'a': 'hello', 'b': 'world!'})
 
 
     Regular element access:
@@ -151,28 +151,28 @@ class BCDict(dict, Generic[K, V]):
 
     >>> d['a'] = "Hello"
     >>> d
-    {'a': 'Hello', 'b': 'world!'}
+    BCDict({'a': 'Hello', 'b': 'world!'})
 
     Calling functions:
 
     >>> d.upper()
-    {'a': 'HELLO', 'b': 'WORLD!'}
+    BCDict({'a': 'HELLO', 'b': 'WORLD!'})
 
     Slicing:
 
     >>> d[1:3]
-    {'a': 'el', 'b': 'or'}
+    BCDict({'a': 'el', 'b': 'or'})
 
     Applying functions:
 
     >>> d.pipe(len)
-    {'a': 5, 'b': 6}
+    BCDict({'a': 5, 'b': 6})
 
     When there is a conflict between an attribute in the values and an attribute in
     `BCDict`, use the attribute accessor explicitly:
 
     >>> d.a.upper()
-    {'a': 'HELLO', 'b': 'WORLD!'}
+    BCDict({'a': 'HELLO', 'b': 'WORLD!'})
 
     Slicing with conflicting keys:
 
@@ -180,7 +180,7 @@ class BCDict(dict, Generic[K, V]):
     >>> n[1]
     'hello'
     >>> n.a[1]
-    {1: 'e', 2: 'o'}
+    BCDict({1: 'e', 2: 'o'})
     """
 
     class DictAccessor:
@@ -247,9 +247,9 @@ class BCDict(dict, Generic[K, V]):
             return self.a[item]
 
     def __getattr__(self, item: str) -> Any:
-        if self.__ipython_safe and (
+        if (
             item.startswith("_ipython_") or item.startswith(("_repr_"))
-        ):
+        ) and self.__ipython_safe:
             # prevent FormatterWarning in ipython notebooks
             raise AttributeError()
         return getattr(self.a, item)

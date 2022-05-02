@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import pickle
 import re
 import sys
 from collections.abc import Collection
@@ -392,3 +393,9 @@ def test_version_is_semver_string():
     version = bcdict.__version__
     print(f"Version is {version}")
     assert re.match(semver_pattern, version)
+
+
+def test_pickle(num_dict):
+    s = pickle.dumps(num_dict)
+    restored = pickle.loads(s)
+    assert restored == num_dict
