@@ -92,6 +92,9 @@ Also check out the full documentation on
 
 ## Changelog
 
+### v0.4.3
+* fix: unpickling causes recursion error
+
 ### v0.4.2
 * docs: improve the documenation
 
