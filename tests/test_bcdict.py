@@ -130,6 +130,11 @@ def test_broadcast_slicing(dict_data):
     assert dict_data[slice_] == BCDict({"A": 2, "B": 3})
 
 
+def test_broadcast_slicing_a(dict_data):
+    slice_ = {"A": "two", "B": "three"}
+    assert dict_data.a[slice_] == BCDict({"A": 2, "B": 3})
+
+
 def test_pipe_simple(d):
     assert d.pipe(lambda s: s.data) == {"A": "s1", "B": "s2"}
 
@@ -332,6 +337,97 @@ def test_to_list():
 
     res = to_list(d1, d2)
     assert res == {"a": [1, 3], "b": [2, 4]}
+
+
+def test_attribute_assignment():
+    d = BCDict({"a": SimpleObj("X"), "b": SimpleObj("Y")})
+    d.data = "new"
+    assert d["a"].data == "new"
+    assert d["b"].data == "new"
+
+
+def test_attribute_assignment_a():
+    d = BCDict({"a": SimpleObj("X"), "b": SimpleObj("Y")})
+    d.a.data = "new"
+    assert d["a"].data == "new"
+    assert d["b"].data == "new"
+
+
+def test_attribute_assignment_broadcast():
+    d = BCDict({"a": SimpleObj("X"), "b": SimpleObj("Y")})
+    d.data = {"a": "newa", "b": "newb"}
+    assert d["a"].data == "newa"
+    assert d["b"].data == "newb"
+
+
+def test_attribute_assignment_broadcast_a():
+    d = BCDict({"a": SimpleObj("X"), "b": SimpleObj("Y")})
+    d.a.data = {"a": "newa", "b": "newb"}
+    assert d["a"].data == "newa"
+    assert d["b"].data == "newb"
+
+
+def test_new_attribute_assignment():
+    d = BCDict({"a": SimpleObj("X"), "b": SimpleObj("Y")})
+    d.fresh = "new"
+    assert d["a"].fresh == "new"
+    assert d["b"].fresh == "new"
+
+
+def test_new_attribute_assignment_a():
+    d = BCDict({"a": SimpleObj("X"), "b": SimpleObj("Y")})
+    d.a.fresh = "new"
+    assert d["a"].fresh == "new"
+    assert d["b"].fresh == "new"
+
+
+def test_attribute_assignment_existing():
+    d = BCDict({"a": {1: 2, 3: 4}, "b": {1: 5, 3: 6}})
+    d.__len__ = False
+    assert d == {"a": {1: 2, 3: 4}, "b": {1: 5, 3: 6}}
+    assert d.__len__ is False
+
+
+def test_item_assignment():
+    d = BCDict({"a": {1: 2, 3: 4}, "b": {1: 5, 3: 6}})
+    d[1] = 42
+    assert d == {"a": {1: 2, 3: 4}, "b": {1: 5, 3: 6}, 1: 42}
+
+
+def test_item_assignment_a():
+    d = BCDict({"a": {1: 2, 3: 4}, "b": {1: 5, 3: 6}})
+    d.a[1] = 42
+    assert d == {"a": {1: 42, 3: 4}, "b": {1: 42, 3: 6}}
+
+
+def test_item_assignment_existing():
+    d = BCDict({"a": {1: 2, 3: 4}, "b": {1: 5, 3: 6}})
+    d["a"] = 42
+    assert d == {"a": 42, "b": {1: 5, 3: 6}}
+
+
+def test_item_assignment_existing_a():
+    d = BCDict({"a": {1: 2, 3: 4}, "b": {1: 5, 3: 6}})
+    d.a["a"] = 42
+    assert d == {"a": {1: 2, 3: 4, "a": 42}, "b": {1: 5, 3: 6, "a": 42}}
+
+
+def test_item_assignment_existing_a_new():
+    d = BCDict({"a": {1: 2, 3: 4}, "b": {1: 5, 3: 6}})
+    d.a["c"] = 42
+    assert d == {"a": {1: 2, 3: 4, "c": 42}, "b": {1: 5, 3: 6, "c": 42}}
+
+
+def test_item_assignment_broadcast():
+    d = BCDict({"a": {1: 2, 3: 4}, "b": {1: 5, 3: 6}})
+    d[1] = {"a": 42, "b": 23}
+    assert d == {"a": {1: 2, 3: 4}, "b": {1: 5, 3: 6}, 1: {"a": 42, "b": 23}}
+
+
+def test_item_assignment_a_broadcast():
+    d = BCDict({"a": {1: 2, 3: 4}, "b": {1: 5, 3: 6}})
+    d.a[1] = {"a": 42, "b": 23}
+    assert d == {"a": {1: 42, 3: 4}, "b": {1: 23, 3: 6}}
 
 
 @pytest.mark.parametrize(

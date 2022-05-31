@@ -196,7 +196,20 @@ class BCDict(dict, Generic[K, V]):
             return BCDict({k: getattr(v, item) for k, v in self.__data.items()})
 
         def __getitem__(self, item: Any) -> BCDict[K, Any]:
-            return BCDict({k: v[item] for k, v in self.__data.items()})  # type: ignore
+            f = lambda d, item: d[item]  # noqa
+            return apply(f, self.__data, item)
+
+        def __setattr__(self, item: str, value: Any) -> None:
+            if item.startswith("_DictAccessor__"):
+                super().__setattr__(item, value)
+            else:
+                apply(setattr, self.__data, item, value)
+
+        def __setitem__(self, item: str, value: Any) -> None:
+            def f(d, item, value):
+                d[item] = value
+
+            apply(f, self.__data, item, value)
 
     def __init__(self, *args: Any, ipython_safe: bool = True, **kwargs: Any):
         self.__ipython_safe = ipython_safe
@@ -253,6 +266,14 @@ class BCDict(dict, Generic[K, V]):
             # prevent FormatterWarning in ipython notebooks
             raise AttributeError()
         return getattr(self.a, item)
+
+    def __setattr__(self, key, value) -> None:
+        if key in dir(self) or (key.startswith("_BCDict__")):
+            # if key is in the BCDict class, overwrite it in this class
+            super().__setattr__(key, value)
+        else:
+            setattr(self.a, key, value)
+            # apply(setattr, self, key, value)
 
     def pipe(self, f: Callable, *args: Any, **kwargs: Any) -> BCDict[K, Any]:
         """Apply callable on each element of the dict.
