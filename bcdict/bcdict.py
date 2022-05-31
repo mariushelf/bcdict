@@ -195,15 +195,15 @@ class BCDict(dict, Generic[K, V]):
         def __getattr__(self, item: str) -> BCDict[K, Any]:
             return BCDict({k: getattr(v, item) for k, v in self.__data.items()})
 
-        def __getitem__(self, item: Any) -> BCDict[K, Any]:
-            f = lambda d, item: d[item]  # noqa
-            return apply(f, self.__data, item)
-
         def __setattr__(self, item: str, value: Any) -> None:
             if item.startswith("_DictAccessor__"):
                 super().__setattr__(item, value)
             else:
                 apply(setattr, self.__data, item, value)
+
+        def __getitem__(self, item: Any) -> BCDict[K, Any]:
+            f = lambda d, item: d[item]  # noqa
+            return apply(f, self.__data, item)
 
         def __setitem__(self, item: str, value: Any) -> None:
             def f(d, item, value):
@@ -254,9 +254,6 @@ class BCDict(dict, Generic[K, V]):
         try:
             return super().__getitem__(item)
         except (KeyError, TypeError):
-            if isinstance(item, dict) and set(item.keys()) == set(self.keys()):
-                # broadcast slice
-                return BCDict({k: v[item[k]] for k, v in self.items()})
             return self.a[item]
 
     def __getattr__(self, item: str) -> Any:
