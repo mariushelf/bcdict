@@ -92,6 +92,10 @@ Also check out the full documentation on
 
 ## Changelog
 
+### v0.5.0
+* feature: broadcast attribute and item assignment
+* fix: broadcast slicing with `.a` accessor
+
 ### v0.4.3
 * fix: unpickling causes recursion error
 
