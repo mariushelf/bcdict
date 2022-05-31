@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "bcdict"
-version = "0.4.3"
+version = "0.5.0"
 description = "Python dictionary with broadcast support."
 authors = ["Marius Helf <marius@happyyeti.tech>"]
 license = "MIT"
