@@ -12,3 +12,6 @@ build:
       - $HOME/.local/bin/poetry config virtualenvs.create false
       # Install project's dependencies
       - $HOME/.local/bin/poetry install
+
+python:
+   system_packages: true
