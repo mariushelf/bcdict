@@ -11,7 +11,7 @@ build:
       # Tell poetry to not use a virtual environment
       - $HOME/.local/bin/poetry config virtualenvs.create false
       # Install project's dependencies
-      - $HOME/.local/bin/poetry install
+      - source $HOME/checkouts/readthedocs.org/user_builds/bcdict/envs/latest/bin/activate && $HOME/.local/bin/poetry install
 
 python:
    system_packages: true
